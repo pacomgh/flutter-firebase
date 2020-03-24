@@ -140,6 +140,7 @@ class _HomeState extends State<Home> {
                       elevation: 7.0,
                       margin: EdgeInsets.all(10.0),
                       child: new Container(
+                        padding: EdgeInsets.all(10.0),
                         child: new Column(
                           children: <Widget>[
                             new Row(
@@ -156,8 +157,23 @@ class _HomeState extends State<Home> {
                             ),
                             new SizedBox(height: 10.0,),
                             new Column(
-                              children: <Widget>[],
-                            )
+                              children: <Widget>[
+                                new ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: new Image.network(sdSnapshot[index].data["url"],
+                                  height: 150,
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.cover,),
+                                )
+                              ],
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                              new Icon(Icons.thumb_up),
+                              new Icon(Icons.share),
+                              new Icon(Icons.favorite)
+                            ],)
                           ],
                         ),
                       ),
