@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
+import 'package:flutter_firebase_backend/DetailsPage.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,6 +32,11 @@ class _HomeState extends State<Home> {
       sdSnapshot = sddatasnap.documents;
     });
     super.initState();
+  }
+
+  passData(DocumentSnapshot snap){
+    Navigator.of(context).push(
+        new MaterialPageRoute(builder: (context)=>DetailPage(snapshot: snap,)));
   }
 
   @override
@@ -135,6 +142,7 @@ class _HomeState extends State<Home> {
               height: MediaQuery.of(context).size.height,
               child: new ListView.builder(
                   itemCount: sdSnapshot.length,
+                  //scrollDirection: Axis.vertical,
                   itemBuilder: (context,index){
                     return Card(
                       elevation: 7.0,
@@ -151,8 +159,14 @@ class _HomeState extends State<Home> {
                                   foregroundColor: Colors.white,
                                 ),
                                 new SizedBox(width: 10.0,),
-                                new Text(sdSnapshot[index].data["title"],
-                                  style: TextStyle(fontSize: 15.0, color: Colors.purple),),
+                                new InkWell(
+                                  child: new Text(sdSnapshot[index].data["title"],
+                                    style: TextStyle(fontSize: 15.0, color: Colors.purple),
+                                  ),
+                                  onTap: (){
+                                    passData(sdSnapshot[index]);
+                                  },
+                                ),
                               ],
                             ),
                             new SizedBox(height: 10.0,),
@@ -170,9 +184,9 @@ class _HomeState extends State<Home> {
                             new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                              new Icon(Icons.thumb_up),
-                              new Icon(Icons.share),
-                              new Icon(Icons.favorite)
+                              new Icon(Icons.thumb_up, color: Colors.blue,),
+                              new Icon(Icons.share, color: Colors.green),
+                              new Icon(Icons.favorite, color: Colors.red,)
                             ],)
                           ],
                         ),
